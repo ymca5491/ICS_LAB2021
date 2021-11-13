@@ -14,7 +14,7 @@ int asm_popcnt(uint64_t x) {
   uint64_t s = 0;
   asm (
     "popcntq %1, %0"
-    :"=r"(s)
+    :"+r"(s)
     :"r"(x)
   );
   return s;
