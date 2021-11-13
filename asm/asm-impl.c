@@ -11,7 +11,7 @@ int64_t asm_add(int64_t a, int64_t b) {
 }
 
 int asm_popcnt(uint64_t x) {
-  uint64_t s = 0;
+  int64_t s = 0;
   asm (
     "popcntq %1, %0"
     :"=r"(s)
@@ -25,10 +25,11 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
   asm (
     ".byte 0xf3, 0xa4" //"rep; movsb"
     :
-    :"c"(n)
-    :"%rsi", "%rdi"
+    :"c"(n), "S"(src), "D"(dest)
+    :"%rcx", "%rsi", "%rdi", "memory"
   );
   */
+
   asm (
     "  mov $0x0, %%rax;"
 		".loop2:;"
