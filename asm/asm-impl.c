@@ -29,6 +29,22 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     :"%rsi", "%rdi"
   );
   */
+  asm (
+    "  mov $0x0, %%rax;"
+		".loop2:;"
+		"  cmp %%rbx, %%rax;"
+		"  jge .ret2;"
+		"  movb (%%rdx), %%cl;"
+		"  movb %%cl, (%%rsi);"
+		"  add $0x1, %%rsi;"
+		"  add $0x1, %%rdx;"
+		"  add $0x1, %%rax;"
+		"  jmp .loop2;"
+		".ret2:;"
+		: 
+		: "b"(n), "S"(dest), "d"(src)
+		: "cl"
+  );
   return dest;
 }
 
