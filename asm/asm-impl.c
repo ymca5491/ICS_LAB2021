@@ -3,9 +3,9 @@
 
 int64_t asm_add(int64_t a, int64_t b) {
   asm (
-    "addq %%rbx, %%rax"
-    :"=a"(a)
-    :"a"(a), "b"(b)
+    "addq %[b], %0"
+    :"=r"(a)
+    :"0"(a), [b] "r"(b)
   );
   return a;
 }
@@ -14,7 +14,7 @@ int asm_popcnt(uint64_t x) {
   uint64_t s = 0;
   asm (
     "popcntq %1, %0"
-    :"+r"(s)
+    :"=r"(s)
     :"r"(x)
   );
   return s;
