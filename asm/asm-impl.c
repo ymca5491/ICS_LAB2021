@@ -40,8 +40,8 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     "   decq %[n];"
     "   cmpq $0, %[n];"
     "   jg .loop_memcpy"
-    :"=&r"(t1), "=&r"(t2), "=&r"(t3)
-    :[src] "0"(src), [dst] "1"(dest), [n] "2"(n)
+    :[src] "=&r"(t1), [dst] "=&r"(t2), [n] "=&r"(t3)
+    :"0"(src), "1"(dest), "2"(n)
     :"%al"
   );
   return dest;
