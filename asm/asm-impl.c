@@ -2,7 +2,7 @@
 #include <string.h>
 
 int64_t asm_add(int64_t a, int64_t b) {
-  asm volatile (
+  asm (
     "addq %[b], %0"
     :"=r"(a)
     :"0"(a), [b] "r"(b)
@@ -12,7 +12,7 @@ int64_t asm_add(int64_t a, int64_t b) {
 
 int asm_popcnt(uint64_t x) {
   uint64_t s = 0;
-  asm volatile (
+  asm (
     "popcntq %1, %0"
     :"=r"(s)
     :"r"(x)
@@ -21,7 +21,7 @@ int asm_popcnt(uint64_t x) {
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
-  asm volatile (
+  asm (
     "rep; movsb"
     :
     :"c"(n)
