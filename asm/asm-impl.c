@@ -21,15 +21,13 @@ int asm_popcnt(uint64_t x) {
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
-  /*
   asm (
     ".byte 0xf3, 0xa4" //"rep; movsb"
     :
     :"c"(n), "S"(src), "D"(dest)
-    :"%rcx", "%rsi", "%rdi", "memory"
+    :"%rcx", "memory"
   );
-  */
-
+  /*
   asm (
     "  mov $0x0, %%rax;"
 		".loop2:;"
@@ -46,6 +44,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 		: "b"(n), "S"(dest), "d"(src)
 		: "%cl", "%rax"
   );
+  */
   return dest;
 }
 
