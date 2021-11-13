@@ -21,7 +21,11 @@ int asm_popcnt(uint64_t x) {
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
-  return memcpy(dest, src, n);
+  asm volatile (
+    "rep; movsb"
+    :
+    :"s"(src), "d"(dest), "c"(n)
+  );
 }
 
 int asm_setjmp(asm_jmp_buf env) {
