@@ -5,12 +5,12 @@
 int main() {
   asm_jmp_buf buf;
   int a = 0;
-  int b = 0xffff;
+  int b = 0xff0f;
   int r = asm_setjmp(buf);
   if (r == 0) {
     assert(asm_add(1234, 5678) == 6912);
     assert(asm_popcnt(0x0123456789abcdefULL) == 32);
-    assert(*(int*)asm_memcpy(&a, &b, 2) == 0xffff);
+    assert(*(int*)asm_memcpy(&a, &b, 2) == 0xff0f);
     asm_longjmp(buf, 123);
   } else {
     assert(r == 123);
