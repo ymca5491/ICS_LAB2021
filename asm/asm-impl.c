@@ -31,7 +31,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
   );
   */
   uint64_t t1, t2, t3;
-  asm volatile (
+  asm (
     ".loop_memcpy:;"
     "   movb (%[src]), %%al;"
     "   movb %%al, (%[dst]);"
@@ -42,7 +42,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     "   jg .loop_memcpy"
     :[src] "=&r"(t1), [dst] "=&r"(t2), [n] "=&r"(t3)
     :"0"(src), "1"(dest), "2"(n)
-    :"%al"
+    :"%al", "memory"
   );
   return dest;
 }
