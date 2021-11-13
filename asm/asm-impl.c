@@ -2,7 +2,7 @@
 #include <string.h>
 
 int64_t asm_add(int64_t a, int64_t b) {
-  asm (
+  asm volatile (
     "addq %[b], %0"
     :"=r"(a)
     :"0"(a), [b] "r"(b)
@@ -12,7 +12,7 @@ int64_t asm_add(int64_t a, int64_t b) {
 
 int asm_popcnt(uint64_t x) {
   uint64_t s = 0;
-  asm (
+  asm volatile (
     "popcntq %1, %0"
     :"=r"(s)
     :"r"(x)
