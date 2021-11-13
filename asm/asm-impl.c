@@ -3,18 +3,20 @@
 
 int64_t asm_add(int64_t a, int64_t b) {
   asm volatile (
-    "addq %[b], %[a]"
-    :[a] "=r"(a)
-    :"0"(a), [b] "r"(b)
+    "addq %1, %0"
+    :"=r"(a)
+    :"0"(a), "r"(b)
   );
   return a;
 }
 
 int asm_popcnt(uint64_t x) {
   int s = 0;
-  for (int i = 0; i < 64; i++) {
-    if ((x >> i) & 1) s++;
-  }
+  asm volatile (
+    "popcnt %1, %0"
+    :"=r"(s)
+    :"r"(x)
+  );
   return s;
 }
 
