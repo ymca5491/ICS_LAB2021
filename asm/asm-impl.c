@@ -31,10 +31,9 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 }
 
 int asm_setjmp(asm_jmp_buf env) {
-  int t = setjmp(env);
-  return t;
+  return 0;
 }
 
 void asm_longjmp(asm_jmp_buf env, int val) {
-  longjmp(env, val);
+  ;
 }
