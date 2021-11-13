@@ -31,7 +31,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
   );
   */
   uint64_t t1, t2, t3;
-  asm volatile (
+  asm (
     ".loop_memcpy:;"
     "   movb (%[src]), %%al;"
     "   movb %%al, (%[dst]);"
