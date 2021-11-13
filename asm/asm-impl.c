@@ -5,7 +5,7 @@ int64_t asm_add(int64_t a, int64_t b) {
   asm volatile (
     "addq %[b], %[a]"
     :[a] "=r"(a)
-    :[a] "r"(a), [b] "r"(b)
+    :"0"(a), [b] "r"(b)
   );
   return a;
 }
