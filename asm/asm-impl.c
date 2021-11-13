@@ -25,7 +25,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     ".byte 0xf3, 0xa4" //"rep; movsb"
     :
     :"c"(n)
-    :"%rcx", "memory"
+    :"%rsi", "%rdi", "memory"
   );
   /*
   asm (
