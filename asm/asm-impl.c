@@ -30,6 +30,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     :"%rsi", "%rdi", "memory"
   );
   */
+  uint64_t t1, t2, t3;
   asm (
     ".loop_memcpy:;"
     "   movb (%[src]), %%al;"
@@ -39,8 +40,8 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     "   decq %[n];"
     "   cmpq $0, %[n];"
     "   jg .loop_memcpy"
-    :
-    :[src] "&r"(src), [dst] "&r"(dest), [n] "&r"(n)
+    :"=&r"(t1), "=&r"(t2), "=&r"(t3)
+    :[src] "0"(src), [dst] "1"(dest), [n] "2"(n)
     :"%al"
   );
   return dest;
