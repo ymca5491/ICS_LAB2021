@@ -27,7 +27,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     "rep; movsb"
     :
     :[src] "r"(src), [dst] "r"(dest), "c"(n)
-    :"%rsi", "%rdi"
+    //:"%rsi", "%rdi"
   );
   return dest;
 }
