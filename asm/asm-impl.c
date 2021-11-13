@@ -21,7 +21,7 @@ int asm_popcnt(uint64_t x) {
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
-  asm (
+  asm volatile (
     "rep; movsb"
     :
     :"c"(n)
