@@ -43,7 +43,7 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
 		".ret2:;"
 		: 
 		: "b"(n), "S"(dest), "d"(src)
-		: "cl"
+		: "%cl"
   );
   return dest;
 }
