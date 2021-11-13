@@ -35,9 +35,9 @@ void *asm_memcpy(void *dest, const void *src, size_t n) {
     ".loop_memcpy:;"
     "   movb (%[src]), %%al;"
     "   movb %%al, (%[dst]);"
-    "   incq %[src];"
-    "   incq %[dst];"
-    "   decq %[n];"
+    "   addq $1, %[src];"
+    "   addq $1, %[dst];"
+    "   subq $1, %[n];"
     "   cmpq $0, %[n];"
     "   jg .loop_memcpy"
     :[src] "=&r"(t1), [dst] "=&r"(t2), [n] "=&r"(t3)
