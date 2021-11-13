@@ -11,6 +11,7 @@ int64_t asm_add(int64_t a, int64_t b) {
 }
 
 int asm_popcnt(uint64_t x) {
+  /*
   uint64_t s = 0;
   asm (
     "popcntq %1, %0"
@@ -18,6 +19,8 @@ int asm_popcnt(uint64_t x) {
     :"r"(x)
   );
   return s;
+  */
+  return 0;
 }
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
