@@ -22,7 +22,7 @@ int asm_popcnt(uint64_t x) {
 
 void *asm_memcpy(void *dest, const void *src, size_t n) {
   asm (
-    ".byte 0xf3a4" //"rep; movsb"
+    ".byte 0xf3 0xa4" //"rep; movsb"
     :
     :"c"(n)
     :"%rsi", "%rdi"
