@@ -57,12 +57,11 @@ int asm_setjmp(asm_jmp_buf env) {
     "movq %%r14,    40(%[buf]);"  // r14
     "movq %%r15,    48(%[buf]);"  // r15
     "movq (%%rsp),  56(%[buf]);"  // (%esp) == pc
-    "xorq %%rax,    %%rax;"
-    "retq"
     :
     :[buf] "r"(env)
     :"memory"
   );
+  return 0;
 }
 
 void asm_longjmp(asm_jmp_buf env, int val) {
