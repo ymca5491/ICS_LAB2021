@@ -75,7 +75,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "movq 32(%[buf]),   %%r13;"    // r13
     "movq 40(%[buf]),   %%r14;"    // r14
     "movq 48(%[buf]),   %%r15;"    // r15
-    "jmpq 56(%[buf])"              // jmp
+    "jmpq *56(%[buf])"              // jmp
     :
     :[buf] "r"(env), "a"(val)
   );
