@@ -70,7 +70,7 @@ void asm_longjmp(asm_jmp_buf env, int val) {
   asm (
     "movq (%[buf]),     %%rbx;"    // rbx
     "movq 8(%[buf]),    %%rbp;"    // rbp
-    "movq 16(%[buf],    %%rsp;"    // rsp
+    "movq 16(%[buf]),    %%rsp;"    // rsp
     "movq 24(%[buf]),   %%r12;"    // r12
     "movq 32(%[buf]),   %%r13;"    // r13
     "movq 40(%[buf]),   %%r14;"    // r14
