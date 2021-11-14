@@ -51,15 +51,17 @@ int asm_setjmp(asm_jmp_buf env) {
   asm (
     "movq %%rbx,    (%[buf]);"    // rbx
     "movq %%rbp,    8(%[buf]);"   // rbp
-    "leaq 8(%%rsp), 16(%[buf]);"  // rsp (before call)
+    "leaq 8(%%rsp), %%rax;"       // rsp (before call)
+    "mov  %%rax,    16(%[buf]);"
     "movq %%r12,    24(%[buf]);"  // r12
     "movq %%r13,    32(%[buf]);"  // r13
     "movq %%r14,    40(%[buf]);"  // r14
     "movq %%r15,    48(%[buf]);"  // r15
-    "movq (%%rsp),  56(%[buf]);"  // (%esp) == pc
+    "movq (%%rsp),  %%rax;"       // (%esp) == pc
+    "movq %%rax,    56(%[buf]);"
     :
     :[buf] "r"(env)
-    :"memory"
+    :"memory", "%rax"
   );
   return 0;
 }
@@ -75,6 +77,6 @@ void asm_longjmp(asm_jmp_buf env, int val) {
     "movq 48(%[buf]),   %%r15;"    // r15
     "jmpq 56(%[buf])"              // jmp
     :
-    :[buf] "r"(env), [val] "a"(val)
+    :[buf] "r"(env), "a"(val)
   );
 }
