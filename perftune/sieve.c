@@ -2,6 +2,7 @@
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>
+#include <math.h>
 
 #define N 10000000
 
@@ -9,6 +10,7 @@ static bool is_prime[N];
 static int  primes[N];
 
 int *sieve(int n) {
+  int sqrt_n = sqrt(n);
   assert(n + 1 < N);
   for (int i = 0; i <= n; i++) {
     if (i & 1)
@@ -19,9 +21,9 @@ int *sieve(int n) {
   is_prime[1] = false;
   is_prime[2] = true;
 
-  for (int i = 3; i <= n; i += 2) {
+  for (int i = 3; i <= sqrt_n; i += 2) {
     if (is_prime[i]) {
-      for (long j = i * i; j <= n; j += i) {
+      for (int j = i * i; j <= n; j += i) {
         is_prime[j] = false;
       }
     }
