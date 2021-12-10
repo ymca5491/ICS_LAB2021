@@ -17,8 +17,10 @@ int *sieve(int n) {
   is_prime[2] = true;
 
   for (int i = 3; i <= n; i += 2) {
-    for (long j = i * i; j <= n; j += i) {
-      is_prime[j] = false;
+    if (is_prime[i]) {
+      for (long j = i * i; j <= n; j += i) {
+        is_prime[j] = false;
+      }
     }
   }
 
