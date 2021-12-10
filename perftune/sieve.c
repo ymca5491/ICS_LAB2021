@@ -9,7 +9,6 @@ static bool is_prime[N];
 static int  primes[N];
 
 int *sieve(int n) {
-  int sqrt_n = sqrt(n);
   assert(n + 1 < N);
   for (int i = 0; i <= n; i++) {
     if (i & 1)
