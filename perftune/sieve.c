@@ -13,7 +13,10 @@ int *sieve(int n) {
   for (int i = 0; i <= n; i++) {
     if (i & 1)
       is_prime[i] = true;
+    else 
+      is_prime[i] = false;
   }
+  is_prime[1] = false;
   is_prime[2] = true;
 
   for (int i = 3; i <= n; i += 2) {
