@@ -16,8 +16,7 @@ struct cache_line {
 };
 
 struct cache_line* cache;
-uint64_t cache_line_size, asso_size;
-uint32_t asso_width, asso_num_width;
+uint64_t cache_line_size, asso_size, asso_width, asso_num_width;
 #define BLOCK_NUM(addr) addr >> BLOCK_WIDTH
 #define BLOCK_BACK(mark, cache_num) (mark << asso_num_width) | (cache_num >> asso_width)
 #define MARK(addr) addr >> (asso_num_width + BLOCK_WIDTH)
