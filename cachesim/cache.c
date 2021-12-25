@@ -36,14 +36,14 @@ uint32_t cache_read(uintptr_t addr) {
   for (uint64_t i = asso_begin; i < asso_begin + asso_size; i++) {
     if (cache[i].dirty == -1) {
       cache[i].dirty = 0;
-      cache[i].mark = MARK(addr);
+      cache[i].mark = mark;
       mem_read(BLOCK_NUM(addr), cache[i].block);
       return *(uint32_t *)(cache[i].block + BLOCK_OFFSET(addr));
     }
   }
   uint64_t cache_num = asso_begin + rand() % asso_size;
   if (cache[cache_num].dirty) mem_write(BLOCK_BACK(cache[cache_num].mark, cache_num), cache[cache_num].block);
-  cache[cache_num].mark = MARK(addr);
+  cache[cache_num].mark = mark;
   cache[cache_num].dirty = 0;
   mem_read(BLOCK_NUM(addr), cache[cache_num].block);
   return *(uint32_t *)(cache[cache_num].block + BLOCK_OFFSET(addr));
@@ -61,7 +61,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   }
   for (uint64_t i = asso_begin; i < asso_begin + asso_size; i++) {
     if (cache[i].dirty == -1) {
-      cache[i].mark = MARK(addr);
+      cache[i].mark = mark;
       mem_read(BLOCK_NUM(addr), cache[i].block);
       *(uint32_t *)(cache[i].block + BLOCK_OFFSET(addr)) = (data & wmask) | (~wmask & *(uint32_t *)(cache[i].block + BLOCK_OFFSET(addr)));
       cache[i].dirty = 1;
@@ -70,7 +70,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   }
   uint64_t cache_num = asso_begin + rand() % asso_size;
   if (cache[cache_num].dirty) mem_write(BLOCK_BACK(cache[cache_num].mark, cache_num), cache[cache_num].block);
-  cache[cache_num].mark = MARK(addr);
+  cache[cache_num].mark = mark;
   cache[cache_num].dirty = 1;
   mem_read(BLOCK_NUM(addr), cache[cache_num].block);
   *(uint32_t *)(cache[cache_num].block + BLOCK_OFFSET(addr)) = (data & wmask) | (~wmask & *(uint32_t *)(cache[cache_num].block + BLOCK_OFFSET(addr)));
