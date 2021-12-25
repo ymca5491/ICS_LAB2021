@@ -54,7 +54,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   uint32_t *p;
   for (uint64_t i = asso_begin; i < asso_begin + asso_size; i++) {
     if (cache[i].dirty != -1 && cache[i].mark == mark) {
-      p = cache[i].block + BLOCK_OFFSET(addr);
+      p = (void *)(cache[i].block + BLOCK_OFFSET(addr));
       *p = (data & wmask) | ((~wmask) & *p);
       cache[i].dirty = 1;
       return;
@@ -64,7 +64,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
     if (cache[i].dirty == -1) {
       cache[i].mark = mark;
       mem_read(BLOCK_NUM(addr), cache[i].block);
-      p = cache[i].block + BLOCK_OFFSET(addr);
+      p = (void *)(cache[i].block + BLOCK_OFFSET(addr));
       *p = (data & wmask) | ((~wmask) & *p);      
       cache[i].dirty = 1;
       return;
@@ -75,7 +75,7 @@ void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
   cache[cache_num].mark = mark;
   cache[cache_num].dirty = 1;
   mem_read(BLOCK_NUM(addr), cache[cache_num].block);
-  p = cache[cache_num].block + BLOCK_OFFSET(addr);
+  p = (void *)(cache[cache_num].block + BLOCK_OFFSET(addr));
   *p = (data & wmask) | ((~wmask) & *p);
 }
 
