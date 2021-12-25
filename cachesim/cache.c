@@ -25,6 +25,7 @@ uint64_t cache_line_size, asso_size, asso_width, asso_num_width;
 #define BLOCK_OFFSET(addr) (uint64_t)(addr & mask_with_len(BLOCK_WIDTH))
 
 uint32_t cache_read(uintptr_t addr) {
+  addr &= ~0x3;
   uint64_t mark = MARK(addr);
   uint64_t asso_begin = ASSO_BEGIN(addr);
   for (uint64_t i = asso_begin; i < asso_begin + asso_size; i++) {
@@ -49,6 +50,7 @@ uint32_t cache_read(uintptr_t addr) {
 }
 
 void cache_write(uintptr_t addr, uint32_t data, uint32_t wmask) {
+  addr &= ~0x3;
   uint64_t mark = MARK(addr);
   uint64_t asso_begin = ASSO_BEGIN(addr);
   uint32_t *p;
