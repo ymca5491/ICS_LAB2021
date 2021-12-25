@@ -82,7 +82,7 @@ void init_cache(int total_size_width, int associativity_width) {
   asso_size = 1 << asso_width;
   asso_num_width = total_size_width - BLOCK_SIZE - associativity_width;
 
-  cache = (struct cache_line *)malloc(cache_line_size);
+  cache = (struct cache_line *)malloc(cache_line_size * sizeof(struct cache_line));
   for (uint64_t i = 0; i < cache_line_size; i++) {
     cache[i].dirty = -1;
   }
