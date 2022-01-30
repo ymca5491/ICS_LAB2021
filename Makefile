@@ -1,3 +1,6 @@
+export STUID := 201300013
+export STUNAME := 梁思成
+
 # **DO NOT MODIFY**
 
 ifeq ($(NAME),)
